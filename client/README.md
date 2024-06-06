@@ -2,15 +2,13 @@
 # Web Field Agent Assessment
 
 ## Tasks
-
 * [ ] Review the requirements (#.# hours)
 
 * [ ] Identify any research that I need to do (#.# hours)
 
 ### Part 1: Project Setup and Agents List
 
-* [ ] Create React App
-* [ ] Clean up any unwanted files
+* [ ] Create an `index.html` and `main.js` file as a starting point for your project
 
 * [ ] Dislay a list of agents
   * [ ] Use `fetch` to `GET` a list of agents from the Field Agent API when the website is first loaded
