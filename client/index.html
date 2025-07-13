@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Agents</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Field Agents</h1>
+        </header>
+
+        <section id="formContainer">
+            <h2 id="formHeading">Add Agent</h2>
+            <div id="error">
+                <!--Inject with JS-->
+            </div>
+            <form onsubmit="handleSubmit(event)" id="form">
+                <fieldset class="mb-3">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" class="form-control">
+                </fieldset>
+                <fieldset class="mb-3">
+                    <label for="middleName">Middle Name</label>
+                    <input type="text" id="middleName" class="form-control">
+                </fieldset>
+                <fieldset class="mb-3">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" class="form-control">
+                </fieldset>
+                <fieldset class="mb-3">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" class="form-control">
+                </fieldset>
+                <fieldset class="mb-3">
+                    <label for="heightInInches">Height (in inches)</label>
+                    <input type="number" id="heightInInches" class="form-control">
+                </fieldset>
+
+                <button class="btn btn-primary" type="submit" id="formSubmitButton">Submit</button>
+                <button class="btn btn-secondary" type="button" onclick="resetState()">Cancel</button>
+            </form>
+        </section>
+
+        <section id="listContainer">
+            <h2>Agents</h2>
+            <button class="btn btn-outline-dark mt-2 mb-4" onclick="handleAddAgent()">Add Agent</button>
+            <table class="table table-stripped">
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Date of Birth</th>
+                        <th>Height</th>
+                        <th>Actions</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody id="tableRow">
+                    <!--We are going to inject HTML via JS-->
+                </tbody>
+            </table>
+        </section>
+    </div>
+    
+    <script src="main.js"></script>
+</body>
+</html>
