@@ -77,6 +77,40 @@ function doPost(agent) {
         .catch(console.log);                // Log any expections
 }
 
+// Update an existing agent
+function doPut(agent) {
+    // Set ID on our global agent object
+    agent.id = editAgentId;
+
+    const init = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(agent)
+    };
+
+    // Make API PUT request
+    fetch(`http://localhost:8080/api/agent/${agent.agentId}`, init)
+        .then(response => {
+            if (response.status === 204) {          // 204 = No Content (Success)
+                return agent;
+            } else if (response.status === 400) {   // 400 = validation error
+                return response.json();
+            } else {                                // Unexpected error
+                return Promise.reject(`Unexpected status code: ${response.status}`);
+            }
+        })
+        .then(data => {
+            if (data.id) {                          // Success
+                displayList();
+                resetState();
+            } else {                                // Validation errors, show them
+                renderError(data);
+            }
+        })
+}
+
 // CRUD functions
 
 // Handle form submission
@@ -127,4 +161,26 @@ function handleDeleteAgent(agentId) {
             })
             .catch(console.log);
     }
+}
+
+// Handle editing agents
+function handleEditAgent(agentId) {
+    const agent = agents.find(a => a.agentId === agentId);
+
+    // Populate the form with agent properties
+    document.getElementById('firstName').value = agent.firstName;
+    document.getElementById('middleName').value = agent.middleName;
+    document.getElementById('lastName').value = agent.lastName;
+    document.getElementById('dob').value = agent.dob;
+    document.getElementById('heightInInches').value = agent.heightInInches;
+
+    // Change form text
+    document.getElementById('formHeading').innerHTML = 'Update Agent';
+    document.getElementById('formSubmitButton').innerHTML = 'Update Agent';
+
+    // Set ID for the agent being updated
+    editAgentId = agentId;
+
+    // Switch to form view
+    setCurrentView('Form');
 }
