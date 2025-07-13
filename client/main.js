@@ -184,3 +184,55 @@ function handleEditAgent(agentId) {
     // Switch to form view
     setCurrentView('Form');
 }
+
+function setCurrentView(view) {
+    const formContainerElement = document.getElementById('formContainer');
+    const listContainerElement = document.getElementById('listContainer');
+
+    switch(view) {
+        case 'List':
+            formContainerElement.style.display = 'none';
+            listContainerElement.style.display = 'block';
+            break;
+        case 'Form':
+            formContainerElement.style.display = 'block';
+            listContainerElement.style.display = 'none';
+            break;
+    }
+}
+
+// Render validation errors
+function renderError(errors) {
+    // Map each error to an HTML List item
+    const errorsHTML = errors.message.split(';').map(error => `<li>${error}</li>`);
+
+    // Create HTML string with all errors
+    const errorsHTMLString = `<p>The following errors were found:</p>
+                                <ul>
+                                    ${errorsHTML.join('')}
+                                </ul>`;
+    
+    // Set error div content
+    document.getElementById('error').innerHTML = errorsHTMLString;
+}
+
+// Reset form state
+function resetState() {
+    // Reset the form
+    document.getElementById('form').reset();
+
+    // Change text to 'Add'
+    document.getElementById('formHeading').innerHTML = 'Add Agent';
+    document.getElementById('formSubmitButton').innerHTML = 'Submit';
+
+    // Clear errors
+    document.getElementById('error').innerHTML = '';
+
+    // Reset editID
+    editAgentId = 0;
+
+    // Switch to list view
+    setCurrentView('List');
+}
+
+displayList();
