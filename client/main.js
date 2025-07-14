@@ -1,6 +1,7 @@
 // Store all agents from the API
 let agents = [];
 let editAgentId = 0;
+let url = 'http://localhost:8080/api/agent';
 
 
 // Initialize our app
@@ -15,7 +16,7 @@ function displayList() {
 
 // Fetch agents from API
 function getAgents() {
-    return fetch('http://localhost:8080/api/agent')
+    return fetch(url)
         .then(response => {
             return response.json();
         })
@@ -58,7 +59,7 @@ function doPost(agent) {
     }
 
     // Make POST request
-    fetch('http://localhost:8080/api/agent', init)
+    fetch(url, init)
         .then(response => {
             if (response.status === 201 || response.status === 400){        // 201 = created successfully, 400 = validation error
                 return response.json();
@@ -91,7 +92,7 @@ function doPut(agent) {
     };
 
     // Make API PUT request
-    fetch(`http://localhost:8080/api/agent/${agent.agentId}`, init)
+    fetch(`${url}/${agent.agentId}`, init)
         .then(response => {
             if (response.status === 204) {          // 204 = No Content (Success)
                 return agent;
@@ -151,7 +152,7 @@ function handleDeleteAgent(agentId) {
         };
 
         // Make DELETE API request
-        fetch(`http://localhost:8080/api/agent/${agentId}`, init)
+        fetch(`${url}/${agentId}`, init)
             .then(response => {
                 if (response.status === 204) {          // Success, refresh the list
                     displayList();                  
@@ -204,7 +205,7 @@ function setCurrentView(view) {
 // Render validation errors
 function renderError(errors) {
     // Map each error to an HTML List item
-    const errorsHTML = errors.message.split(';').map(error => `<li>${error}</li>`);
+    const errorsHTML = errors.map(error => `<li>${error}</li>`);
 
     // Create HTML string with all errors
     const errorsHTMLString = `<p>The following errors were found:</p>
